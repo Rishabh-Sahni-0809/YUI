@@ -1,5 +1,5 @@
 import pytest
-from kira.agent.safety import is_safe_step
+from yui.agent.safety import is_safe_step
 
 def test_safety_check_blocks_format():
     is_safe, reason = is_safe_step("type", "", "format c:")

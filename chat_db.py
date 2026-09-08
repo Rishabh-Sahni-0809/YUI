@@ -11,7 +11,7 @@ import threading
 import json
 from pathlib import Path
 
-DB_PATH = Path(__file__).parent / "kira_data.db"
+DB_PATH = Path(__file__).parent / "yui_data.db"
 
 class ChatDB:
     """Thread-safe SQLite wrapper for Kira's persistent storage."""

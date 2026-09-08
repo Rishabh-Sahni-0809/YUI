@@ -3,7 +3,7 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "kira"
+name = "yui"
 version = "0.1.0"
 description = "A universal multimodal AI assistant"
 readme = "README.md"

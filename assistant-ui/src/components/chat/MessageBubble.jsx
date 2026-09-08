@@ -6,7 +6,7 @@ const MessageBubble = ({ msg }) => {
   const isUser = msg.role === 'user';
   
   return (
-    <div className={`message-bubble-wrapper ${isUser ? 'user' : 'kira'}`}>
+    <div className={`message-bubble-wrapper ${isUser ? 'user' : 'yui'}`}>
       <div className={`message-bubble ${!msg.text ? 'actions-only' : ''}`}>
         {msg.text && <div className="message-text">{msg.text}</div>}
         

@@ -27,7 +27,7 @@ monitor:
 
 conversation:
   context_messages: 10     # Last N messages sent with each request
-  system_prompt: "You are Kira, a helpful AI assistant running on Intel hardware with OpenVINO acceleration. Be concise and helpful."
+  system_prompt: "You are YUI, a helpful AI assistant running on Intel hardware with OpenVINO acceleration. Be concise and helpful."
 
 cloud:
   groq_model: "groq/compound"

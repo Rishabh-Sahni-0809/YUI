@@ -59,10 +59,10 @@ export function useAgentStream() {
                // Update latest bot message
                setMessages(prev => {
                  const newMsgs = [...prev];
-                 if (newMsgs[newMsgs.length - 1]?.role === 'kira') {
+                 if (newMsgs[newMsgs.length - 1]?.role === 'yui') {
                    newMsgs[newMsgs.length - 1].text = botText;
                  } else {
-                   newMsgs.push({ role: 'kira', text: botText });
+                   newMsgs.push({ role: 'yui', text: botText });
                  }
                  return newMsgs;
                });
@@ -72,12 +72,12 @@ export function useAgentStream() {
       }
       
       if (isAgentTask && !botText) {
-         setMessages(prev => [...prev, { role: 'kira', text: "Agent task complete. See step log." }]);
+         setMessages(prev => [...prev, { role: 'yui', text: "Agent task complete. See step log." }]);
       }
       
       setStatus('Ready');
     } catch (err) {
-      setMessages(prev => [...prev, { role: 'kira', text: "Connection error." }]);
+      setMessages(prev => [...prev, { role: 'yui', text: "Connection error." }]);
       setStatus('Error');
     } finally {
       setIsRunning(false);

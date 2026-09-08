@@ -88,7 +88,7 @@ export default function DynamicLayout() {
               <div ref={chatRef} style={{ flex: 1, overflowY: 'auto', padding: '16px' }}>
                 {messages.length === 0 && (
                   <div style={{ textAlign: 'center', marginTop: '40px', color: 'var(--text-muted)' }}>
-                    Start a task to see Kira in action.
+                    Start a task to see YUI in action.
                   </div>
                 )}
                 {messages.map((m, i) => <MessageBubble key={i} msg={m} />)}

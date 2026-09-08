@@ -19,7 +19,7 @@ const TitleBar = ({ activeTask, status = 'idle', routingStatus, cpuPercent, cpuS
       <div className="titlebar-left">
         <div className="brand">
           <span className="brand-logo">●</span>
-          <span className="brand-name">Kira</span>
+          <span className="brand-name">YUI</span>
         </div>
         
         {/* View switcher */}

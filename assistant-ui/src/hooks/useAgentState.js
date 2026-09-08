@@ -94,9 +94,9 @@ export function useAgentState() {
 
                setMessages(prev => {
                  const newMsgs = [...prev];
-                 // Find the last kira message or create one
-                 if (newMsgs[newMsgs.length - 1]?.role !== 'kira') {
-                   newMsgs.push({ role: 'kira', text: '', actions: currentActions });
+                 // Find the last yui message or create one
+                 if (newMsgs[newMsgs.length - 1]?.role !== 'yui') {
+                   newMsgs.push({ role: 'yui', text: '', actions: currentActions });
                  } else {
                    newMsgs[newMsgs.length - 1].actions = currentActions;
                  }
@@ -106,10 +106,10 @@ export function useAgentState() {
                botText += dataStr + "\n";
                setMessages(prev => {
                  const newMsgs = [...prev];
-                 if (newMsgs[newMsgs.length - 1]?.role === 'kira') {
+                 if (newMsgs[newMsgs.length - 1]?.role === 'yui') {
                    newMsgs[newMsgs.length - 1].text = botText.trim();
                  } else {
-                   newMsgs.push({ role: 'kira', text: botText.trim(), actions: currentActions });
+                   newMsgs.push({ role: 'yui', text: botText.trim(), actions: currentActions });
                  }
                  return newMsgs;
                });
@@ -124,7 +124,7 @@ export function useAgentState() {
         setTimeout(() => setPanelState(PANEL_STATES.IDLE), 5000);
       }
     } catch (err) {
-      setMessages(prev => [...prev, { role: 'kira', text: "Connection error.", actions: [] }]);
+      setMessages(prev => [...prev, { role: 'yui', text: "Connection error.", actions: [] }]);
       setStatus('Error');
     } finally {
       setIsRunning(false);
