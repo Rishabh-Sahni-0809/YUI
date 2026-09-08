@@ -1,0 +1,8 @@
+# Minimal dependencies for running CI tests
+pytest
+psutil
+pyyaml
+python-dotenv
+requests
+fuzzywuzzy
+python-Levenshtein
