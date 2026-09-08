@@ -1,4 +1,4 @@
-name: Kira CI
+name: YUI CI
 
 on:
   push:
@@ -27,4 +27,4 @@ jobs:
 
     - name: Run tests
       run: |
-        pytest
+        python -m pytest
