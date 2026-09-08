@@ -1,0 +1,31 @@
+.subtask-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 8px 0;
+}
+
+.subtask-pill {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-default);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 200ms;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.subtask-pill:hover {
+  box-shadow: var(--glow-teal);
+  border-color: var(--border-strong);
+}
+
+.subtask-pill.completed {
+  border-color: var(--accent-teal);
+  color: var(--accent-teal);
+  background: rgba(0,212,170,0.08);
+}

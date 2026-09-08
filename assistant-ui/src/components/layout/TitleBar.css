@@ -1,0 +1,153 @@
+.titlebar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 48px;
+  padding: 0 20px;
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border-default);
+  -webkit-app-region: drag; /* For Electron/Tauri drag */
+}
+
+.titlebar-left, .titlebar-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  -webkit-app-region: no-drag;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.brand-logo {
+  color: var(--accent-primary);
+  font-size: 14px;
+}
+
+.task-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+}
+
+.status-dot {
+  font-size: 10px;
+}
+.status-dot.idle { color: var(--text-muted); }
+.status-dot.running { color: var(--accent-primary); animation: pulse-border 1.5s infinite; }
+.status-dot.error { color: var(--accent-error); }
+
+.task-text {
+  color: var(--text-secondary);
+  max-width: 300px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.model-badge {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+}
+
+.provider-local { background: rgba(0, 212, 170, 0.1); color: var(--accent-primary); border: 1px solid rgba(0,212,170,0.2); }
+.provider-groq { background: rgba(14, 165, 233, 0.1); color: var(--accent-secondary); border: 1px solid rgba(14,165,233,0.2); }
+.provider-gemini { background: rgba(167, 139, 250, 0.1); color: var(--accent-purple); border: 1px solid rgba(167,139,250,0.2); }
+
+.cpu-badge {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+.cpu-badge.warning { color: var(--accent-warning); }
+.cpu-badge.critical { color: var(--accent-error); font-weight: bold; }
+
+.settings-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.settings-btn:hover {
+  color: var(--text-primary);
+}
+
+/* ── View switcher tabs ────────────────────────── */
+.view-tabs {
+  display: flex;
+  gap: 2px;
+  background: var(--bg-elevated);
+  border-radius: 8px;
+  padding: 2px;
+  border: 1px solid var(--border-subtle);
+}
+
+.view-tab {
+  padding: 4px 12px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.view-tab.active {
+  background: var(--accent-primary);
+  color: white;
+  box-shadow: 0 1px 4px rgba(0, 212, 170, 0.3);
+}
+
+.view-tab:hover:not(.active) {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* ── Routing indicator ─────────────────────────── */
+.route-dot {
+  font-size: 8px;
+  margin-right: 4px;
+}
+
+.route-local {
+  color: #22c55e;
+}
+
+.route-cloud {
+  color: #6366f1;
+}
+
+.provider-unknown {
+  background: rgba(128, 128, 128, 0.1);
+  color: var(--text-muted);
+  border: 1px solid rgba(128,128,128,0.2);
+}
+
+.latency-tag {
+  font-size: 10px;
+  opacity: 0.7;
+  margin-left: 6px;
+  font-weight: 400;
+}

@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kira"
+version = "0.1.0"
+description = "A universal multimodal AI assistant"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "flask",
+    "requests",
+    "fuzzywuzzy",
+    "numpy",
+]
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q"
+testpaths = [
+    "tests",
+]

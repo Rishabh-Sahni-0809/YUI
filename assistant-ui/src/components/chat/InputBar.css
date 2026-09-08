@@ -1,0 +1,74 @@
+.input-bar-container {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  padding: 16px;
+  background: var(--bg-surface);
+  border-top: 1px solid var(--border-default);
+}
+
+.mic-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 20px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+
+.mic-btn:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.input-textarea {
+  flex-grow: 1;
+  background: var(--bg-base);
+  border: 1px solid var(--border-strong);
+  border-radius: 20px;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  padding: 12px 16px;
+  resize: none;
+  outline: none;
+  max-height: 120px;
+  transition: all 0.2s ease;
+}
+
+.input-textarea:focus {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 1px var(--accent-primary);
+}
+
+.send-btn {
+  background: var(--accent-primary);
+  color: #13161B;
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  box-shadow: var(--glow-teal);
+}
+
+.send-btn:hover:not(:disabled) {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
+.send-btn.running {
+  background: var(--bg-hover);
+  color: var(--accent-primary);
+  box-shadow: none;
+  border: 1px solid var(--border-strong);
+  cursor: default;
+}

@@ -1,145 +1,78 @@
 <p align="center">
-  <img src="banner.png" alt="Digital Dave Banner" width="100%"/>
+  <img src="banner.png" alt="Kira Banner" width="100%"/>
 </p>
 
-<h1 align="center">🤖 Digital Dave — AMD Edge AI Copilot</h1>
+<h1 align="center">🤖 Kira</h1>
 
 <p align="center">
-  <b>A fully hybrid, voice-activated AI assistant with offline-first intelligence, real-time system monitoring, and cloud-powered autonomous code agents.</b>
+  <b>A privacy-first, multimodal desktop AI agent.</b>
 </p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/Python-3.13-blue?logo=python&logoColor=white" />
   <img src="https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white" />
-  <img src="https://img.shields.io/badge/Ollama-Local_AI-4B32C3?logo=meta&logoColor=white" />
-  <img src="https://img.shields.io/badge/Groq-Cloud_Agent-FF6B35?logo=lightning&logoColor=white" />
-  <img src="https://img.shields.io/badge/Flask-REST_API-000000?logo=flask&logoColor=white" />
+  <img src="https://img.shields.io/badge/OpenVINO-2025.x-0071C5?logo=intel&logoColor=white" />
+  <img src="https://img.shields.io/badge/FAISS-Vector_DB-FFB000" />
+  <img src="https://img.shields.io/badge/Playwright-Web_Agent-2EAD33?logo=playwright&logoColor=white" />
   <img src="https://img.shields.io/badge/License-MIT-green" />
 </p>
 
 ---
 
-## ⚡ What is Digital Dave?
+## ⚡ What is Kira?
 
-**Digital Dave** is a desktop AI copilot built for **Windows** that combines voice control, local AI inference, real-time hardware telemetry, and cloud-powered autonomous agents into a single unified interface. It operates in three distinct intelligence tiers:
+**Kira** (formerly Digital Dave) is an autonomous, OS-level AI assistant . Kira combines local LLMs, hardware-accelerated computer vision (OmniParser), and generic browser orchestration into a unified 3-panel React dashboard. 
 
-| Tier | Mode | Engine | Speed |
-|------|------|--------|-------|
-| 🟢 **Offline** | Default | Local commands + Ollama `phi` | Instant |
-| 🔵 **Deep Research** | On-demand | Wolfram Alpha + Wikipedia → Ollama | ~10s |
-| 🟣 **Developer Mode** | On-demand | Groq `llama3-70b` via smolagents | ~5s |
+Kira operates entirely on-device by default, utilizing Intel Core Ultra NPUs for deep learning workloads, while seamlessly routing highly complex tasks to cloud models during peak system stress.
 
 ---
 
-## 🏗️ Architecture
+## 🚀 Key Features & How to Test Them
 
-```
-┌──────────────────────────────────────────────────┐
-│                  React Dashboard                  │
-│         (Voice + Text + System Monitor)           │
-└────────────────────┬─────────────────────────────┘
-                     │ HTTP (axios)
-┌────────────────────▼─────────────────────────────┐
-│               Flask API Server                    │
-│       /chat  /listen  /metrics  /diagnose         │
-└────────────────────┬─────────────────────────────┘
-                     │
-┌────────────────────▼─────────────────────────────┐
-│           Digital_Assistant.py                     │
-│                                                    │
-│  ┌─────────────┐  ┌──────────────┐  ┌──────────┐ │
-│  │  Offline     │  │ Deep Research│  │Developer │ │
-│  │  Commands    │  │ Wolfram+Wiki │  │  Mode    │ │
-│  │  (if/elif)   │  │  + Ollama    │  │ (Groq)  │ │
-│  └─────────────┘  └──────────────┘  └──────────┘ │
-└──────────────────────────────────────────────────┘
+### 🧠 Persistent RAG Memory & Workflow Macros
+Kira remembers your past conversations and learns from successful agentic tasks by serializing them into a FAISS vector database.
+* **Observe Memory**: Chat with Kira normally, then later ask *"What were we just talking about?"* or *"What did I ask you earlier?"*. Kira will pull context from FAISS via `all-MiniLM-L6-v2`.
+* **Observe Macros**: Ask Kira to do a multi-step task, e.g., *"open notepad and type hello"*. Wait for it to succeed. Ask the exact same command again, and watch the agent skip the LLM planner and instantly execute the cached macro!
+
+### 🌐 Universal Browser Agent (Playwright)
+Kira handles web navigation dynamically without hardcoded parsers, converting OmniParser coordinates to Playwright DOM clicks.
+* **Observe Browser Agent**: Command Kira: *"go to github.com and search for Kira"*. Watch the `[AGENT:STEP]` logs in the React UI as it autonomously navigates, waits, and types into the search box.
+
+### 🔌 Adaptive Compute Router
+Kira monitors your PC's CPU and RAM. If the system is under heavy load (Emergency State) or you ask a complex coding question, it routes inference to Groq/Claude instead of the local Ollama instance.
+* **Observe Routing**: Open several heavy applications to spike your CPU usage > 85%, then ask Kira a complex logic question. Check the backend console to see the `[ROUTER] System stressed. Offloading to cloud.` message.
+
+### 👁️ NPU-Optimized OmniParser Vision
+When executing desktop interactions, Kira takes screenshots, runs them through the Microsoft OmniParser vision model via OpenVINO, and extracts bounding boxes.
+* **Observe NPU**: Run any UI-clicking task and watch your Flask server terminal. If you are on an Intel Core Ultra device, you will see `[NPU] Intel Core Ultra NPU detected. Optimizing OmniParser for NPU...` followed by lightning-fast UI element detection.
+
+---
+
+## 📊 Benchmark Results
+
+Kira includes a built-in benchmarking suite to compare local models against cloud APIs under varying system loads.
+
+| Benchmark Task | 🐢 Local (phi) | ⚡ Cloud (Groq) | ☁️ Cloud (Gemini) |
+|----------------|----------------|-----------------|-------------------|
+| **Fact Retrieval** | `3598 ms` (0.6 t/s) | `2439 ms` (16.8 t/s) | `2685 ms` (0.4 t/s) |
+| **Explanation** | `13798 ms` (3.6 t/s)| `3756 ms` (**143.5 t/s**) | `2068 ms` (1.0 t/s) |
+| **Code Generation** | `12193 ms` (4.1 t/s)| `9546 ms` (**145.2 t/s**) | `12019 ms` (Err) |
+| **Summarization** | `11726 ms` (4.3 t/s)| `8859 ms` (Err) | `7226 ms` (0.1 t/s) |
+| **System Reasoning** | `13210 ms` (3.8 t/s)| `3999 ms` (Err) | `15581 ms` (Err) |
+
+*(Note: "Err" denotes API rate limits/timeouts during heavy parallel load testing. Local models always ensure 100% uptime)*
+
+```mermaid
+xychart-beta
+    title "Peak Token Throughput (Tokens/Second)"
+    x-axis ["Local (phi)", "Gemini 3.6", "Groq Compound"]
+    y-axis "Tokens / Sec" 0 --> 150
+    bar [4, 1, 145]
 ```
 
 ---
 
-## 🚀 Key Features
-
-### 🎙️ Voice & Text Hybrid Input
-- **Voice-activated** — Just speak naturally, Dave listens and responds.
-- **Text input** — Type commands directly in the React chat interface.
-- **Seamless switching** — Say *"activate text"* or *"deactivate text"* to toggle modes.
-
-### 🧠 Local AI Inference (Offline-First)
-- Powered by **Ollama** running Microsoft's `phi` model locally.
-- **Zero internet dependency** for standard operations.
-- Sentiment analysis, screen summarization, and Q&A all run on-device.
-- Unrecognized commands automatically routed to the local AI for intelligent responses.
-
-### 🔬 Deep Research Mode
-- Say **"start deep research"** to activate.
-- Cross-references **Wolfram Alpha** (computational) + **Wikipedia** (factual) data.
-- Feeds combined context into the local Ollama model for the best synthesized answer.
-- Say **"stop deep research"** to return to fast, direct answers.
-
-### 🤖 Developer Mode (Cloud Agent)
-- Say **"activate developer mode"** to switch.
-- Spins up an autonomous **smolagents CodeAgent** powered by **Groq's llama3-70b-8192**.
-- Capable of writing, analyzing, and executing complex code tasks.
-- Say **"deactivate developer mode"** to return to offline operations.
-
-### 📊 Real-Time System Monitoring
-- **AMD Edge AI Dashboard** — Say **"view system analytics"** to open.
-- Live metrics: CPU load, RAM usage, GPU utilization.
-- **Emergency Compute State** triggered when CPU > 85% or RAM > 80%.
-- AI-powered optimization advice during system stress events.
-- Say **"close system analytics"** to dismiss.
-
-### 🖥️ Screen Intelligence
-- **OCR-powered screen reading** — Say *"summarize screen"* or *"what's on screen"*.
-- Captures your display, extracts text via Tesseract OCR.
-- Summarizes content using the local Phi model (fully offline).
-
-### 😊 Emotional Intelligence
-- Say *"I feel tired"* or *"I'm feeling anxious"* — Dave detects your mood.
-- Responds with empathetic, mood-appropriate reactions.
-- Sentiment analysis powered entirely by local AI.
-
-### 🌐 Web & App Control
-- Open websites: *"open YouTube"*, *"open GitHub"*, *"open StackOverflow"*
-- Search Google: *"search for machine learning"*
-- Play YouTube content: *"play something on YouTube"*
-- Control YouTube playback: *"pause"*, *"play"*, *"skip"*, *"mute"*
-- Smart web button clicking via OCR
-
-### 🛠️ Productivity Tools
-- **Alarm system** — *"set alarm"* with natural language time input
-- **Schedule manager** — *"set my schedule"* / *"show my schedule"*
-- **Internet speed test** — *"run speed test"*
-- **System controls** — *"shutdown"*, *"lock"*, open Task Manager, Device Manager
-- **App launcher** — Open Notepad, Camera, Calculator, File Explorer, VS Code, and more
-
-### 🎮 Built-in Entertainment
-- **Flappy Bird** — *"play flappy bird"*
-- **Car Game** — *"open car game"*
-- **Dino Game** — *"open dino game"*
-- **Drawing App** — *"open drawing app"*
-- **Notes App** — *"open notes app"*
-- **Password Generator** — *"open password generator"*
-- **GitHub Profiler** — *"open github profiler"*
-
-### 📰 Information Services
-- **News** — *"give me news"* fetches top headlines
-- **Weather** — *"weather today"*
-- **Time** — *"what's the time"*
-- **IP Address** — *"what is my IP"*
-- **Wikipedia** — *"tell me about [topic]"*
-
----
-
-## 🛡️ Safety Guardrails
-
-Emergency exit commands are **always evaluated first**, regardless of active mode:
-
 ```
-"stop" | "abort" | "shut down" | "bye" | "exit dave"
-```
-
-These will immediately terminate Digital Dave from any state — normal, deep research, or developer mode.
 
 ---
 
@@ -147,40 +80,41 @@ These will immediately terminate Digital Dave from any state — normal, deep re
 
 | Layer | Technology |
 |-------|-----------|
-| **Frontend** | React 19, Vite, Framer Motion, Lucide Icons |
-| **Backend** | Python 3.13, Flask, Flask-CORS |
-| **Local AI** | Ollama (Microsoft Phi), Tesseract OCR |
-| **Cloud AI** | Groq API (Llama3-70b), smolagents (HuggingFace) |
-| **Monitoring** | psutil, custom SystemDashboard component |
-| **Voice** | SpeechRecognition, pyttsx3 |
-| **Knowledge** | Wolfram Alpha API, Wikipedia API |
-| **Automation** | pyautogui, pynput, desktop_use |
+| **Frontend** | React 19, Vite, Tailwind |
+| **Backend Core** | Python 3.13, Flask |
+| **Vision / Grounding**| OpenVINO 2025.x, OmniParser, Tesseract OCR |
+| **Memory Database**| FAISS, Sentence-Transformers, Optimum |
+| **Agent Execution**| Playwright (Web), PyAutoGUI (Desktop) |
+| **Routing / Compute**| psutil, Ollama (phi), Groq API |
 
 ---
 
 ## ⚙️ Installation
 
 ### Prerequisites
-- **Python 3.10+**
+- **Python 3.12 or 3.13** (Note: 3.14 currently has NumPy compatibility issues).
 - **Node.js 18+**
-- **Ollama** installed and running ([ollama.com](https://ollama.com))
-- **Tesseract OCR** installed at `C:\Program Files\Tesseract-OCR\`
+- **Ollama** running locally with the `phi` model (`ollama pull phi`).
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/yourusername/Kine-main.git
-cd Kine-main
+git clone https://github.com/yourusername/Kira.git
+cd Kira
 ```
 
 ### 2. Install Python Dependencies
 ```bash
-pip install -r requirements.txt
-pip install smolagents litellm flask flask-cors psutil
+# Core AI and Vision
+pip install openvino optimum[openvino,nncf] mss pillow pytesseract
+# Memory and RAG
+pip install faiss-cpu sentence-transformers torch
+# Browser and System
+pip install playwright psutil Flask flask-cors requests
 ```
 
-### 3. Pull the Local AI Model
+### 3. Install Playwright Browsers
 ```bash
-ollama pull phi
+python -m playwright install chromium
 ```
 
 ### 4. Install Frontend Dependencies
@@ -189,89 +123,75 @@ cd assistant-ui
 npm install
 ```
 
-### 5. Set Environment Variables
-```bash
-# Windows PowerShell
-$env:GROQ_API_KEY = "your_groq_api_key_here"
-```
-
 ---
 
-## ▶️ Running Digital Dave
+## ▶️ Running Kira
 
 Open **three terminals**:
 
 ```bash
-# Terminal 1: Start Ollama
+# Terminal 1: Start Local Ollama
 ollama serve
 
-# Terminal 2: Start the Flask backend
+# Terminal 2: Start the Flask Backend
+cd Kira
 python server.py
 
-# Terminal 3: Start the React frontend
-cd assistant-ui
+# Terminal 3: Start the React Frontend
+cd Kira/assistant-ui
 npm run dev
 ```
 
-Then open **http://localhost:5174** in your browser.
+    Then open **http://localhost:5174** in your browser.
 
 ---
 
-## 🗣️ Quick Command Reference
+## 🎯 Hardcoded Zero-Latency Scenarios
 
-| Command | Action |
-|---------|--------|
-| *"activate developer mode"* | Switch to cloud-powered CodeAgent |
-| *"deactivate developer mode"* | Return to offline mode |
-| *"start deep research"* | Enable Wolfram + Wikipedia + AI synthesis |
-| *"stop deep research"* | Return to fast direct answers |
-| *"view system analytics"* | Open real-time hardware dashboard |
-| *"close system analytics"* | Hide the dashboard |
-| *"summarize screen"* | OCR + AI summary of your display |
-| *"activate ask me anything"* | Direct chat with local AI |
-| *"set alarm"* | Set a voice-activated alarm |
-| *"run speed test"* | Test your internet speed |
-| *"play flappy bird"* | Launch the built-in game |
+For common daily tasks, Kira bypasses the cloud LLM router entirely to execute actions with **zero latency** using hardcoded OS-level hotkeys and generic browser navigation:
+
+- **Music Playback**: `"open spotify and play [song name]"` (Opens Spotify Desktop, focuses search, types song, and plays)
+- **Email Access**: `"check my email"` or `"open gmail"` (Opens default browser to mail.google.com)
+- **Weather Checks**: `"what is the weather in [city]"` or `"check weather"` (Triggers a rapid Google Search query)
+- **Timers**: `"set a timer for [number] [minutes/hours/seconds]"` (Instantly opens a Google timer for the exact duration)
+
+*Note: For all other unstructured commands, Kira will dynamically engage the Agentic Loop and Cloud/Local LLM Router.*
 
 ---
 
-## 📁 Project Structure
+## 🗣️ Voice Commands & Fallbacks
+
+Kira operates via a Text/Voice hybrid interface. Standard safety commands will immediately kill any active task loop:
+```
+"stop" | "abort" | "shut down" | "exit kira"
+```
+
+---
+
+## 📁 Core Project Structure
 
 ```
-Kine-main/
-├── Digital_Assistant.py    # Core assistant logic (1100+ lines)
+Kira/
+├── Digital_Assistant.py    # Core Agent Loop (Plan -> Execute -> Observe)
 ├── server.py               # Flask REST API server
-├── system_monitor.py       # Real-time CPU/RAM/GPU monitoring
-├── gui.py / gui1.py / gui2.py  # Legacy GUI interfaces
-├── requirements.txt        # Python dependencies
-├── banner.png              # Project banner
-├── notification.wav        # Alert sound
-├── assistant-ui/           # React frontend (Vite)
-│   ├── src/
-│   │   ├── App.jsx         # Main chat interface
-│   │   ├── SystemDashboard.jsx  # Hardware metrics panel
-│   │   ├── index.css       # Global styles
-│   │   └── SystemDashboard.css  # Dashboard styles
-│   └── package.json
-├── desktop_use/            # Desktop automation library
-├── Websites/               # Built-in web apps (games, tools)
-└── flappy_Bird/            # Flappy Bird game
+├── kira/
+│   ├── agent/
+│   │   ├── memory.py       # FAISS Vector Database for RAG & Macros
+│   │   └── safety.py       # Safety blocks
+│   └── voice/
+│       └── tts.py          # TTS and STT
+├── compute_router.py       # CPU/RAM aware LLM load balancer
+├── browser_agent.py        # Universal Playwright web automation
+├── system_monitor.py       # Hardware polling and emergency states
+├── requirements.txt        
+├── assistant-ui/           # React 19 / Vite 3-panel Frontend
+│   └── src/
+│       └── App.jsx         # Unified Dashboard UI
+└── memory_data/            # Local vector indices and profiles
 ```
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Feel free to open issues or submit pull requests.
 
 ---
 
 ## 📄 License
 
 This project is licensed under the **MIT License**.
-
----
-
-<p align="center">
-  Built with ❤️ by <b>Rishabh Sahni</b>
-</p>

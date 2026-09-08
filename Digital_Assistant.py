@@ -1,20 +1,65 @@
-import pyttsx3
-import speech_recognition as sr
+
+# ── Graceful Hardware Imports ──
+try:
+    import pyttsx3
+    PYTTSX3_AVAILABLE = True
+except ImportError:
+    PYTTSX3_AVAILABLE = False
+
+try:
+    import speech_recognition as sr
+    SR_AVAILABLE = True
+except ImportError:
+    SR_AVAILABLE = False
+
+try:
+        WIN32COM_AVAILABLE = True
+except ImportError:
+    WIN32COM_AVAILABLE = False
+
+try:
+        DESKTOP_USE_AVAILABLE = True
+except ImportError:
+    DESKTOP_USE_AVAILABLE = False
+
+try:
+    import pytesseract
+    PYTESSERACT_AVAILABLE = True
+except ImportError:
+    PYTESSERACT_AVAILABLE = False
 import datetime
 import ctypes
 import wikipedia
 import webbrowser
 import time
 import os
-import wolframalpha
+
+try:
+    from config_loader import (
+        WOLFRAMALPHA_ID, MODEL_MAX_TOKENS, TESSERACT_PATH, 
+        ALARM_SOUND_PATH, ENABLE_TTS, ENABLE_SPEECH, ENABLE_DESKTOP
+    )
+except ImportError:
+    WOLFRAMALPHA_ID = None
+    MODEL_MAX_TOKENS = 200
+    TESSERACT_PATH = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+    ALARM_SOUND_PATH = ""
+    ENABLE_TTS = True
+    ENABLE_SPEECH = True
+    ENABLE_DESKTOP = True
+
+try:
+    import wolframalpha
+    WOLFRAM_AVAILABLE = True
+except ImportError:
+    WOLFRAM_AVAILABLE = False
+
 import random
 import sys
 import subprocess
 import GoogleNews
 import cv2
-import win32com.client
 from fuzzywuzzy import fuzz
-from desktop_use import DesktopUseClient, Locator, sleep
 import requests
 import threading
 from pynput.keyboard import Key,Controller
@@ -49,6 +94,8 @@ def set_output_callback(callback):
     """Set the callback function for output."""
     global output_callback
     output_callback = callback
+    if 'set_voice_output_callback' in globals():
+        set_voice_output_callback(callback)
 
 def print_output(message):
     """print output using the callback or fallback to print_output."""
@@ -139,7 +186,7 @@ def respond_to_sentiment(sentiment):
 
 def type_into_field_desktop(app_name, field_role, text):
     try:
-        field = client.locator(f'window:{app_name}').locator(f'role:{field_role}')
+        field = get_desktop_client().locator(f'window:{app_name}').locator(f'role:{field_role}')
         field.type_text(text)
         speak("Typed your text successfully.")
     except Exception as e:
@@ -272,9 +319,9 @@ def smart_click_web_button(button_label: str):
         # Step 1: Focus browser window using Terminator (YouTube or ChatGPT)
         print_output("Trying to activate browser window...")
         try:
-            client.activate_browser_window_by_title("YouTube")
+            get_desktop_client().activate_browser_window_by_title("YouTube")
         except:
-            client.activate_browser_window_by_title("ChatGPT")
+            get_desktop_client().activate_browser_window_by_title("ChatGPT")
 
         # Step 2: Take screenshot using pyautogui
         img = pyautogui.screenshot()

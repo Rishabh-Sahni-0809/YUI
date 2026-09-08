@@ -1,0 +1,50 @@
+# ─────────────────────────────────────────────────
+#  KIRA — Central Configuration
+# ─────────────────────────────────────────────────
+
+model:
+  # Local model runner (Ollama)
+  ollama_model: phi
+  ollama_url: "http://localhost:11434"
+  
+  # OpenVINO IR model directory (for LLM inference)
+  openvino_model_dir: "./omniparser_ov"
+  
+  # Generation defaults
+  max_tokens: 200
+  temperature: 0.2
+  context_length: 4096
+
+thresholds:
+  # CPU/RAM percentage boundaries for routing decisions
+  green_max: 50       # Below this = GREEN (local preferred)
+  yellow_max: 75      # Below this = YELLOW (local with warning)
+  red_min: 75         # At or above = RED (route to cloud)
+
+monitor:
+  poll_interval_ms: 500    # How often to sample CPU/RAM
+  history_size: 60         # Number of readings to keep for sparkline
+
+conversation:
+  context_messages: 10     # Last N messages sent with each request
+  system_prompt: "You are Kira, a helpful AI assistant running on Intel hardware with OpenVINO acceleration. Be concise and helpful."
+
+cloud:
+  groq_model: "groq/compound"
+  gemini_model: "gemini-3.6-flash"
+  groq_timeout: 10
+  gemini_timeout: 15
+
+paths:
+  tesseract_path: "C:\\Program Files\\Tesseract-OCR\\tesseract.exe"
+  alarm_sound_path: "C:\\Users\\hp\\Music\\Ashes Remain - On My Own.mp3"
+
+flags:
+  enable_tts: true
+  enable_speech_input: true
+  enable_desktop_automation: true
+
+flask:
+  host: "0.0.0.0"
+  port: 5000
+  debug: false

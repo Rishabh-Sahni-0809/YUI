@@ -8,6 +8,13 @@ build/
 .env
 venv/
 env/
+.venv/
+kira_data.db
+run_bench_temp.py
+
+# Models & Data
+memory_data/
+omniparser_ov/
 
 # Node
 node_modules/
