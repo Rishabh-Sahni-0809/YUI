@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="800" height="999" alt="image" src="https://github.com/user-attachments/assets/c0db9652-bfcb-4a9a-88f5-aad766268b70" />
+  <img width="650" height="600" alt="image" src="https://github.com/user-attachments/assets/c0db9652-bfcb-4a9a-88f5-aad766268b70" />
 </p>
 
 <h1 align="center">🌙🦋 YUI</h1>
@@ -31,7 +31,7 @@ The journey started in Class 10 with a simple Python voice bot that could open a
 
 Today, YUI combines local LLMs, hardware-accelerated computer vision (OmniParser), and generic browser orchestration into a unified 3-panel React dashboard. It operates entirely on-device by default, utilizing Intel Core Ultra NPUs for deep learning workloads, while seamlessly routing highly complex tasks to cloud models during peak system stress.
 
-<img width="800" height="999" alt="image" src="https://github.com/user-attachments/assets/22610227-025d-4374-ba79-64626c0636db" />
+<img width="700" height="700" alt="image" src="https://github.com/user-attachments/assets/22610227-025d-4374-ba79-64626c0636db" />
 
 
 ---
@@ -73,7 +73,7 @@ YUI includes a built-in benchmarking suite to compare local models against cloud
 
 *(Note: "Err" denotes API rate limits/timeouts during heavy parallel load testing. Local models always ensure 100% uptime)*
 
-<img width="1280" height="1169" alt="image" src="https://github.com/user-attachments/assets/40555422-8567-4a5d-bb08-db8458e1c114" />
+<img width="800" height="800" alt="image" src="https://github.com/user-attachments/assets/40555422-8567-4a5d-bb08-db8458e1c114" />
 
 
 ```mermaid
